@@ -144,10 +144,10 @@ h1, .fancy-title {
   letter-spacing: 0.05em;
 }
 
-/* Hero image container */
 .hero-image-container {
   flex: 1 1 320px;
   max-width: 520px;
+  height: 420px; /* add this */
   margin: 0 auto;
   border-radius: 32px;
   overflow: hidden;
@@ -159,9 +159,9 @@ h1, .fancy-title {
   height: 100%;
   object-fit: cover;
   display: block;
-  max-height: 420px;
   border-radius: 32px;
 }
+
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
