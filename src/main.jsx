@@ -1,12 +1,11 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-// import './index.css';
-import './dashboard.css';
-import './logDrinkModal.css';
-import './viewHistoryModal.css';
-import './login.css';
-import './hero.css';
-// import './fanta.css'
+import './design/dashboard.css';
+import './design/logDrinkModal.css';
+import './design/viewHistoryModal.css';
+import './design/login.css';
+import './design/hero.css';
+
 
 
 

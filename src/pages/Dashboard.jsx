@@ -184,110 +184,233 @@ export default function Dashboard() {
   const status = getStatusLevel(currentCaffeine);
 
   return (
-    <div className="dashboard-wrapper">
+    <div className="dashboard-container">
       <header className="dashboard-header">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', cursor: 'pointer' }} onClick={() => navigate('/')}>
-          <img src="/logo5.jpg" alt="Logo" />
-          <h1 className="logo-text">Zarurat-e-Coffee</h1>
-        </div>
-        <div className="header-buttons">
-          <button onClick={() => navigate('/')} className="neon-button">🏠 Home</button>
-          <button onClick={handleLogout} className="logout">Logout</button>
+        <div className="header-content">
+          <div className="logo-section" onClick={() => navigate('/')}>
+            <img src="/logo5.jpg" alt="Logo" className="logo-img" />
+            <h1 className="logo-text">Zarurat-e-Coffee</h1>
+          </div>
+          <div className="header-buttons">
+            <button onClick={() => navigate('/')} className="btn-home">
+              Home
+            </button>
+            <button onClick={handleLogout} className="btn-logout">
+              Logout
+            </button>
+          </div>
         </div>
       </header>
 
-      <main className="dashboard-container">
-        <div className="cards-group">
-          <section className="card" style={{ backgroundColor: status.background, color: status.color, border: `2px solid ${status.color}20`, position: 'relative', overflow: 'hidden' }}>
-            <div style={{position: 'absolute', top: 0, right: 0, fontSize: '10rem', opacity: 0.06, color: status.color, transform: 'rotate(15deg) translate(20%, -20%)', pointerEvents: 'none'}}>⚡</div>
-            <h2 style={{display: 'flex', alignItems: 'center', gap: '0.5rem', color: status.color, textShadow: '0 1px 2px rgba(255, 255, 255, 0.5)', fontWeight: 800}}>
-              <span style={{fontSize: '1.2rem'}}>⚡</span>
-              CURRENT CAFFEINE LEVEL
-            </h2>
-            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '1.5rem'}}>
-              <p className="caffeine-level">
-                {currentCaffeine.toFixed(2)}
-                <span style={{fontSize: '2.25rem', fontWeight: 700, marginLeft: '0.25rem'}}>mg</span>
-              </p>
-              <p className="status-desc" style={{color: status.color}}>{status.description}</p>
+      <main className="main-content">
+        <div className="page-title-section">
+          <h2 className="page-title">Your Dashboard</h2>
+          <p className="page-subtitle">Track your caffeine intake and monitor your daily habits</p>
+        </div>
+
+        <div className="grid-1-3">
+          <section
+            className="caffeine-card card span-1"
+            style={{
+              backgroundColor: status.background,
+              borderColor: status.color,
+              backgroundImage: `radial-gradient(circle at 100% 0%, ${status.color}15, transparent 50%)`
+            }}
+          >
+            <div className="caffeine-card-bg" style={{ color: status.color }}>
+              ⚡
+            </div>
+            <div className="caffeine-card-content">
+              <div className="card-header">
+                <div className="card-icon" style={{ backgroundColor: `${status.color}20` }}>
+                  <span>⚡</span>
+                </div>
+                <h3 className="card-title" style={{ color: status.color }}>
+                  Current Level
+                </h3>
+              </div>
+              <div className="caffeine-display">
+                <div className="caffeine-value">
+                  <span className="caffeine-number" style={{ color: status.color }}>
+                    {currentCaffeine.toFixed(0)}
+                  </span>
+                  <span className="caffeine-unit" style={{ color: status.color }}>
+                    mg
+                  </span>
+                </div>
+                <div className="caffeine-status-badge" style={{ backgroundColor: `${status.color}15` }}>
+                  <p className="caffeine-status-text" style={{ color: status.color }}>
+                    {status.description}
+                  </p>
+                </div>
+              </div>
             </div>
           </section>
 
-          <section className="card">
-            <h2>Daily Stats</h2>
-            <p><span style={{color: '#00809D', fontSize: '1.1rem'}}>⚡</span> Avg. Caffeine: <strong style={{color: '#F8FAFC'}}>{stats.daily_caffeine} mg</strong></p>
-            <p><span style={{color: '#FF7601', fontSize: '1.1rem'}}>₹</span> Daily Spend: <strong style={{color: '#F8FAFC'}}>₹{stats.daily_cost}</strong></p>
-            <p><span style={{color: '#00809D', fontSize: '1.1rem'}}>☕</span> Coffees/Day: <strong style={{color: '#F8FAFC'}}>{stats.average_coffees}</strong></p>
-            <p><span style={{color: '#FF7601', fontSize: '1.1rem'}}>💰</span> Total Spend: <strong style={{color: '#F8FAFC'}}>₹{stats.total_cost}</strong></p>
+          <section className="card span-2">
+            <div className="card-header">
+              <div className="card-icon" style={{ backgroundColor: '#dbeafe' }}>
+                <span>📊</span>
+              </div>
+              <h3 className="card-title" style={{ color: '#0f172a' }}>Statistics Overview</h3>
+            </div>
+            <div className="stats-grid">
+              <div className="stat-card blue">
+                <div className="stat-header">
+                  <span className="stat-icon">⚡</span>
+                  <p className="stat-label">Avg. Caffeine</p>
+                </div>
+                <p className="stat-value blue">{stats.daily_caffeine}<span className="stat-unit">mg</span></p>
+              </div>
+
+              <div className="stat-card amber">
+                <div className="stat-header">
+                  <span className="stat-icon">₹</span>
+                  <p className="stat-label">Daily Spend</p>
+                </div>
+                <p className="stat-value amber">₹{stats.daily_cost}</p>
+              </div>
+
+              <div className="stat-card slate">
+                <div className="stat-header">
+                  <span className="stat-icon">☕</span>
+                  <p className="stat-label">Coffees/Day</p>
+                </div>
+                <p className="stat-value slate">{stats.average_coffees}</p>
+              </div>
+
+              <div className="stat-card emerald">
+                <div className="stat-header">
+                  <span className="stat-icon">💰</span>
+                  <p className="stat-label">Total Spend</p>
+                </div>
+                <p className="stat-value emerald">₹{stats.total_cost}</p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div className="grid-1-3">
+          <section className="card span-2">
+            <div className="chart-header">
+              <div className="card-icon" style={{ backgroundColor: '#dbeafe' }}>
+                <span>📈</span>
+              </div>
+              <h3 className="card-title" style={{ color: '#0f172a' }}>Caffeine Timeline</h3>
+              <span className="chart-badge">Last 24h</span>
+            </div>
+            <div className="chart-container">
+              <Line
+                data={{
+                  ...chartData,
+                  datasets: [{
+                    ...chartData.datasets[0],
+                    borderColor: '#1e3a8a',
+                    backgroundColor: 'rgba(30, 58, 138, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointBackgroundColor: '#1e3a8a',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 3,
+                    pointHoverRadius: 6,
+                    pointHoverBackgroundColor: '#1e3a8a',
+                    pointHoverBorderColor: '#fff',
+                    pointHoverBorderWidth: 3,
+                  }]
+                }}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: true,
+                  aspectRatio: 2.5,
+                  plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                      backgroundColor: 'rgba(30, 58, 138, 0.9)',
+                      padding: 12,
+                      cornerRadius: 8,
+                      titleFont: { size: 14, weight: 'bold' },
+                      bodyFont: { size: 13 },
+                    }
+                  },
+                  scales: {
+                    x: {
+                      ticks: {
+                        color: '#64748b',
+                        font: { size: 11 },
+                        maxRotation: 0,
+                        autoSkipPadding: 20
+                      },
+                      grid: {
+                        color: 'rgba(148, 163, 184, 0.1)',
+                        drawBorder: false
+                      }
+                    },
+                    y: {
+                      ticks: {
+                        color: '#64748b',
+                        font: { size: 11 },
+                        callback: (value) => value + ' mg'
+                      },
+                      grid: {
+                        color: 'rgba(148, 163, 184, 0.1)',
+                        drawBorder: false
+                      }
+                    }
+                  }
+                }}
+              />
+            </div>
           </section>
 
-          <section className="card">
-            <h2 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-              <span style={{fontSize: '1.2rem'}}>🏆</span>
-              All Time Top 3 Drinks
-            </h2>
-            <ul>
+          <section className="card span-1">
+            <div className="card-header">
+              <div className="card-icon" style={{ backgroundColor: '#fef3c7' }}>
+                <span>🏆</span>
+              </div>
+              <h3 className="card-title" style={{ color: '#0f172a' }}>Top Drinks</h3>
+            </div>
+            <ul className="drinks-list">
               {topCoffees.map((drink, idx) => (
-                <li key={idx}>
-                  <strong style={{color: idx === 0 ? '#FF7601' : '#F8FAFC', fontSize: '1.05rem'}}>
-                    {idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉'} {drink.coffeeName}
-                  </strong>
-                  <span style={{color: '#94A3B8', marginLeft: '0.5rem'}}>— {drink.count} cups</span>
-                  <br />
-                  <span style={{fontSize: '0.85rem', color: '#94A3B8'}}>
-                    {drink.timestamps.map((ts, i) => (
-                      <span key={i}>🕒 {timeSinceConsumption(ts)} ago{i < drink.timestamps.length - 1 && ', '}</span>
-                    ))}
-                  </span>
+                <li key={idx} className="drink-item">
+                  <div className="drink-content">
+                    <span className="drink-medal">
+                      {idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉'}
+                    </span>
+                    <div className="drink-info">
+                      <div className="drink-header">
+                        <p className="drink-name">
+                          {drink.coffeeName}
+                        </p>
+                        <span className="drink-count">
+                          {drink.count}x
+                        </span>
+                      </div>
+                      <div className="drink-timestamps">
+                        {drink.timestamps.slice(0, 2).map((ts, i) => (
+                          <div key={i} className="timestamp-item">
+                            <span>⏱</span>
+                            <span>{timeSinceConsumption(ts)} ago</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </li>
               ))}
             </ul>
           </section>
         </div>
 
-        <section className="chart-card">
-          <h2 style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
-            <span style={{fontSize: '1.2rem'}}>📈</span>
-            Caffeine Over Time (Last 24h)
-          </h2>
-          <Line data={chartData} options={{
-            responsive: true,
-            maintainAspectRatio: true,
-            aspectRatio: 3,
-            plugins: {
-              legend: {
-                display: false
-              }
-            },
-            scales: {
-              x: {
-                ticks: {
-                  color: '#94A3B8',
-                  maxRotation: 0,
-                  autoSkipPadding: 20
-                },
-                grid: {
-                  color: 'rgba(148, 163, 184, 0.1)'
-                }
-              },
-              y: {
-                ticks: {
-                  color: '#94A3B8'
-                },
-                grid: {
-                  color: 'rgba(148, 163, 184, 0.1)'
-                }
-              }
-            }
-          }} />
-        </section>
-
-        <div className="button-group">
-          <button onClick={handleLogDrinkClick} className="neon-button">Log a Drink</button>
-          <button onClick={handleViewHistoryClick} className="neon-button">View History</button>
+        <div className="action-buttons">
+          <button onClick={handleLogDrinkClick} className="btn-primary">
+            <span>☕</span> Log a Drink
+          </button>
+          <button onClick={handleViewHistoryClick} className="btn-secondary">
+            <span>📜</span> View History
+          </button>
         </div>
       </main>
     </div>
   );
 }
-
