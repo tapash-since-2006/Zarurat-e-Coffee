@@ -312,8 +312,8 @@ export default function Dashboard() {
                     pointBackgroundColor: '#1e3a8a',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
-                    pointRadius: 3,
-                    pointHoverRadius: 6,
+                    pointRadius: window.innerWidth < 640 ? 0 : 3,
+                    pointHoverRadius: window.innerWidth < 640 ? 0 : 6,
                     pointHoverBackgroundColor: '#1e3a8a',
                     pointHoverBorderColor: '#fff',
                     pointHoverBorderWidth: 3,
@@ -322,24 +322,25 @@ export default function Dashboard() {
                 options={{
                   responsive: true,
                   maintainAspectRatio: true,
-                  aspectRatio: 2.5,
+                  aspectRatio: window.innerWidth < 640 ? 1.2 : window.innerWidth < 1024 ? 2 : 2.5,
                   plugins: {
                     legend: { display: false },
                     tooltip: {
                       backgroundColor: 'rgba(30, 58, 138, 0.9)',
-                      padding: 12,
+                      padding: window.innerWidth < 640 ? 8 : 12,
                       cornerRadius: 8,
-                      titleFont: { size: 14, weight: 'bold' },
-                      bodyFont: { size: 13 },
+                      titleFont: { size: window.innerWidth < 640 ? 12 : 14, weight: 'bold' },
+                      bodyFont: { size: window.innerWidth < 640 ? 11 : 13 },
                     }
                   },
                   scales: {
                     x: {
                       ticks: {
                         color: '#64748b',
-                        font: { size: 11 },
+                        font: { size: window.innerWidth < 640 ? 9 : 11 },
                         maxRotation: 0,
-                        autoSkipPadding: 20
+                        autoSkipPadding: window.innerWidth < 640 ? 30 : 20,
+                        maxTicksLimit: window.innerWidth < 640 ? 6 : undefined
                       },
                       grid: {
                         color: 'rgba(148, 163, 184, 0.1)',
@@ -349,8 +350,9 @@ export default function Dashboard() {
                     y: {
                       ticks: {
                         color: '#64748b',
-                        font: { size: 11 },
-                        callback: (value) => value + ' mg'
+                        font: { size: window.innerWidth < 640 ? 9 : 11 },
+                        callback: (value) => value + ' mg',
+                        maxTicksLimit: window.innerWidth < 640 ? 5 : undefined
                       },
                       grid: {
                         color: 'rgba(148, 163, 184, 0.1)',
