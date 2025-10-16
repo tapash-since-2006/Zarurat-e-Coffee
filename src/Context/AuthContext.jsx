@@ -5,13 +5,13 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null);
-  const [loading, setLoading] = useState(true); // NEW: loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Get the current session on mount
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
-      setLoading(false); // Stop loading after session fetch
+      setLoading(false); 
     });
 
     // Listen for auth state changes (e.g., login, logout)

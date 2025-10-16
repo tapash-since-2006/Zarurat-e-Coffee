@@ -10,8 +10,8 @@ import './design/hero.css';
 
 
 import App from './App.jsx';
-import { ModalProvider } from './Context/ModalContext';  // adjust path if needed
-import { AuthProvider } from './Context/AuthContext';    // adjust path to your AuthContext
+import { ModalProvider } from './Context/ModalContext';  
+import { AuthProvider } from './Context/AuthContext';    
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
