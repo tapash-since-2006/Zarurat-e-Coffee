@@ -14,6 +14,8 @@
 .dashboard-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #f8fafc 0%, #dbeafe 100%);
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* Header */
@@ -176,6 +178,7 @@
   border: 1px solid #e2e8f0;
   transition: all 0.3s ease;
   width: 100%;
+  box-sizing: border-box;
 }
 
 @media (min-width: 640px) {
@@ -468,7 +471,9 @@
   gap: 1rem;
   justify-content: center;
   align-items: stretch;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
 }
 
 @media (min-width: 640px) {
@@ -540,6 +545,8 @@
   grid-template-columns: 1fr;
   gap: 1rem;
   margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 @media (min-width: 640px) {

@@ -72,8 +72,9 @@ export default function Dashboard() {
     if (drinkHistory.length === 0) return;
 
     const now = Date.now();
-    const oneDayAgo = now - 24 * 60 * 60 * 1000;
-    const filteredHistory = drinkHistory.filter((drink) => drink.consumed_at >= oneDayAgo);
+    const twentyHoursAgo = now - 20 * 60 * 60 * 1000;
+    const fourHoursAhead = now + 4 * 60 * 60 * 1000;
+    const filteredHistory = drinkHistory.filter((drink) => drink.consumed_at >= twentyHoursAgo);
 
     if (filteredHistory.length === 0) {
       setChartData({
@@ -105,7 +106,7 @@ export default function Dashboard() {
       return mg * Math.pow(0.5, hours / halfLife);
     };
 
-    const timePoints = generateTimeSeries(oneDayAgo, now, intervalMs);
+    const timePoints = generateTimeSeries(twentyHoursAgo, fourHoursAhead, intervalMs);
     const caffeineOverTime = timePoints.map((ts) =>
       filteredHistory.reduce((sum, drink) => {
         if (drink.consumed_at <= ts) {
@@ -297,7 +298,7 @@ export default function Dashboard() {
                 <span>📈</span>
               </div>
               <h3 className="card-title" style={{ color: '#0f172a' }}>Caffeine Timeline</h3>
-              <span className="chart-badge">Last 24h</span>
+              <span className="chart-badge">20h past to 4h ahead</span>
             </div>
             <div className="chart-container">
               <Line
@@ -309,6 +310,7 @@ export default function Dashboard() {
                     backgroundColor: 'rgba(30, 58, 138, 0.1)',
                     fill: true,
                     tension: 0.4,
+                    borderWidth: window.innerWidth < 640 ? 2.5 : 2,
                     pointBackgroundColor: '#1e3a8a',
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
@@ -322,27 +324,29 @@ export default function Dashboard() {
                 options={{
                   responsive: true,
                   maintainAspectRatio: true,
-                  aspectRatio: window.innerWidth < 640 ? 1.2 : window.innerWidth < 1024 ? 2 : 2.5,
+                  aspectRatio: window.innerWidth < 640 ? 1.5 : window.innerWidth < 1024 ? 2 : 2.5,
                   plugins: {
                     legend: { display: false },
                     tooltip: {
+                      enabled: window.innerWidth >= 640,
                       backgroundColor: 'rgba(30, 58, 138, 0.9)',
-                      padding: window.innerWidth < 640 ? 8 : 12,
+                      padding: 12,
                       cornerRadius: 8,
-                      titleFont: { size: window.innerWidth < 640 ? 12 : 14, weight: 'bold' },
-                      bodyFont: { size: window.innerWidth < 640 ? 11 : 13 },
+                      titleFont: { size: 14, weight: 'bold' },
+                      bodyFont: { size: 13 },
                     }
                   },
                   scales: {
                     x: {
                       ticks: {
                         color: '#64748b',
-                        font: { size: window.innerWidth < 640 ? 9 : 11 },
+                        font: { size: window.innerWidth < 640 ? 8 : 11 },
                         maxRotation: 0,
-                        autoSkipPadding: window.innerWidth < 640 ? 30 : 20,
-                        maxTicksLimit: window.innerWidth < 640 ? 6 : undefined
+                        autoSkipPadding: window.innerWidth < 640 ? 40 : 20,
+                        maxTicksLimit: window.innerWidth < 640 ? 5 : undefined
                       },
                       grid: {
+                        display: window.innerWidth >= 640,
                         color: 'rgba(148, 163, 184, 0.1)',
                         drawBorder: false
                       }
@@ -352,9 +356,10 @@ export default function Dashboard() {
                         color: '#64748b',
                         font: { size: window.innerWidth < 640 ? 9 : 11 },
                         callback: (value) => value + ' mg',
-                        maxTicksLimit: window.innerWidth < 640 ? 5 : undefined
+                        maxTicksLimit: window.innerWidth < 640 ? 4 : undefined
                       },
                       grid: {
+                        display: window.innerWidth >= 640,
                         color: 'rgba(148, 163, 184, 0.1)',
                         drawBorder: false
                       }
